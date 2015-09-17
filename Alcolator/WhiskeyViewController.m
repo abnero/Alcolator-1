@@ -14,8 +14,7 @@
 
 @implementation WhiskeyViewController
 
-- (void)buttonPressed:(UIButton *)sender;
-{
+- (void) fixUpView{
     [self.beerPercentTextField resignFirstResponder];
     
     int numberOfBeers = self.beerCountSlider.value;
@@ -31,6 +30,8 @@
     float ouncesOfAlcoholPerWhiskeyGlass = ouncesInOneWhiskeyGlass * alcoholPercentageOfWhiskey;
     float numberOfWhiskeyGlassesForEquivalentAlcoholAmount = ouncesOfAlcoholTotal / ouncesOfAlcoholPerWhiskeyGlass;
     
+    self.navigationItem.title =  [NSString stringWithFormat:@"%.1f shots", numberOfWhiskeyGlassesForEquivalentAlcoholAmount];
+
     NSString *beerText;
     
     if (numberOfBeers == 1) {

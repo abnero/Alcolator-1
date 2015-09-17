@@ -37,10 +37,10 @@
 
 - (IBAction)sliderValueDidChange:(UISlider *)sender {
     NSLog(@"Slider value changed to %f", sender.value);
-    [self.beerPercentTextField resignFirstResponder];
+    [self fixUpView];
 }
 
-- (IBAction)buttonPressed:(UIButton *)sender {
+- (void) fixUpView {
     [self.beerPercentTextField resignFirstResponder];
     
     // first, calculate how much alcohol is in all those beers...
@@ -59,6 +59,8 @@
     
     float ouncesOfAlcoholPerWineGlass = ouncesInOneWineGlass * alcoholPercentageOfWine;
     float numberOfWineGlassesForEquivalentAlcoholAmount = ouncesOfAlcoholTotal / ouncesOfAlcoholPerWineGlass;
+    
+    self.navigationItem.title =  [NSString stringWithFormat:@"%f glasses", numberOfWineGlassesForEquivalentAlcoholAmount];
     
     // decide whether to use "beer"/"beers" and "glass"/"glasses"
     
@@ -82,6 +84,11 @@
     
     NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ contains as much alcohol as %.1f %@ of wine.", nil), numberOfBeers, beerText, numberOfWineGlassesForEquivalentAlcoholAmount, wineText];
     self.resultLabel.text = resultText;
+}
+
+
+- (IBAction)buttonPressed:(UIButton *)sender {
+    [self fixUpView];
 }
 
 - (IBAction)tapGestureDidFire:(UITapGestureRecognizer *)sender {
